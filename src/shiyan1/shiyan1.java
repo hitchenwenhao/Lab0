@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-﻿package shiyan1;
-=======
-﻿package shiyan1;00001111
->>>>>>> B2
+package shiyan1;
 import java.io.*;
 import java.util.Random;
-000
+
 public class shiyan1 {
 	public static String txtStr;
 	public static int size=1;
@@ -20,10 +16,45 @@ public class shiyan1 {
  
 	public static void main(String[] args) throws IOException{
 		// TODO 自动生成的方法存根
+		creat();
+        showDirectedGraph();
+        System.out.println("****************menu******************");
+        System.out.println("Please enter the frist words you want to inquire:");
+        try{
+        	BufferedReader in1 =new BufferedReader(new InputStreamReader (System.in));
+        	s1=in1.readLine();
+        	}catch(IOException e){}
+        System.out.println("Please enter the second words you want to inquire:");
+        try{
+        	BufferedReader in2 =new BufferedReader(new InputStreamReader (System.in));
+        	s2=in2.readLine();
+        	}catch(IOException e){}
+        printBridgeWords(s1,s2);
+        System.out.println("Please enter the newtxt:");
+        try{
+        	BufferedReader newtxt_ =new BufferedReader(new InputStreamReader (System.in));
+        	newtxt=newtxt_.readLine();
+        	}catch(IOException e){}
+        generateNewText(newtxt); 
+	    System.out.println("Please enter the starting point of shortest path that you want to query:");
+	   	try{
+       		BufferedReader in3 =new BufferedReader(new InputStreamReader (System.in));
+       		s3=in3.readLine();
+       		}catch(IOException e){}
+	   System.out.println("Please enter the ending point of shortest path that you want to query:");
+	   try{
+       		BufferedReader in4 =new BufferedReader(new InputStreamReader (System.in));
+       		s4=in4.readLine();
+       		}catch(IOException e){}
+	   
+	  calcShortestPath(s3,s4);
+	  randomWalk();
+	   
+	   
+		
+	}
+	public  static void creat() throws IOException{
 		FileInputStream rf = new FileInputStream("C://Users//94936//Desktop//tete.txt");
-
-
-
 		byte[] buffer = new byte[rf.available()];	//读取到文件尾，动态生成数组
 		while(rf.read(buffer)!=-1)
 		{
@@ -62,60 +93,21 @@ public class shiyan1 {
         	int m,n;
         	m=indexofword(arr[i]);
         	n=indexofword(arr[i+1]);
-        	adjmatrix[m][n]+=1;
-        	
+        	adjmatrix[m][n]+=1;	
         }
-        showDirectedGraph();
-        System.out.println("****************menu******************");
-        System.out.println("Please enter the frist words you want to inquire:");
-        try{
-        	BufferedReader in1 =new BufferedReader(new InputStreamReader (System.in));
-        	s1=in1.readLine();
-        	}catch(IOException e){}
-        System.out.println("Please enter the second words you want to inquire:");
-        try{
-        	BufferedReader in2 =new BufferedReader(new InputStreamReader (System.in));
-        	s2=in2.readLine();
-        	}catch(IOException e){}
-        printBridgeWords(s1,s2);
-        System.out.println("Please enter the newtxt:");
-        try{
-        	BufferedReader newtxt_ =new BufferedReader(new InputStreamReader (System.in));
-        	newtxt=newtxt_.readLine();
-        	}catch(IOException e){}
-        generateNewText(newtxt); 
-	    System.out.println("Please enter the starting point of shortest path that you want to query:");
-	   	try{
-       		BufferedReader in3 =new BufferedReader(new InputStreamReader (System.in));
-       		s3=in3.readLine();
-       		}catch(IOException e){}
-	   System.out.println("Please enter the ending point of shortest path that you want to query:");
-	   try{
-       		BufferedReader in4 =new BufferedReader(new InputStreamReader (System.in));
-       		s4=in4.readLine();
-       		}catch(IOException e){}
-	   
-	  calcShortestPath(s3,s4);
-	  randomWalk();
-	   
-	   
-		
-	}
+}
 	
 	
 	
 	public static int indexofword(String word)
     {
-    	int i,flag=0;
+    	int i;
     	for(i=0;i<size;i++)
     	{
-    		if(arr_[i].equals(word))
-    			{flag=1;break;}
+    		if(arr_[i].equals(word)==true)
+    			return i;
     	}
-    	if(flag==0)
-    	    return -1;
-    	else
-    		return i;
+    	return -1;
     } //展示有向图
 	
 	
@@ -168,8 +160,9 @@ public class shiyan1 {
 }//查询桥接词
 	
 	
-	static void printBridgeWords(String word1, String word2){
+	static String printBridgeWords(String word1, String word2){
 		int i;
+		String s1;
 		int index_1,index_2;
 		index_1=indexofword(word1);
 		index_2=indexofword(word2);
@@ -177,37 +170,49 @@ public class shiyan1 {
 		{
 			if(index_1==-1 && index_2==-1)
 			{
-				System.out.println("No \""+word1+"\" and \""+ word2+"\" in the graph!");
+				System.out.println("No \'"+word1+"\' and \'"+ word2+"\' in the graph!");
+				s1="No \'"+word1+"\' and \'"+ word2+"\' in the graph!";
+				return s1;
 			}
 			else if(index_1==-1)
 			{
-			System.out.println("No \""+word1+"\" in the graph!");
+			System.out.println("No \'"+word1+"\' in the graph!");
+			s1="No \'"+word1+"\' in the graph!";
+			return s1;
+			
 			}
 			else
 			{
-				System.out.println("No \""+word2+"\" in the graph!");
+				System.out.println("No \'"+word2+"\' in the graph!");
+				s1="No \'"+word2+"\' in the graph!";
+				return s1;
 			}
-			return ;
 		}
-		if(queryBridgeWords(word1,word2)[0]==0)
+		else if(queryBridgeWords(word1,word2)[0]==0)
 		{
-			System.out.println("No bridge words from \""+word1+"\" to \""+word2+"\"!");
+			System.out.println("No bridge words from \'"+word1+"\' to \'"+word2+"\'!");
+			s1="No bridge words from \'"+word1+"\' to \'"+word2+"\'!";
+			return s1;
 		}
-		else{
-			System.out.println("The bridge words from \""+word1+"\" to \""+word2+"\" are:");
+		else  {
+			System.out.println("The bridge words from \'"+word1+"\' to \'"+word2+"\' are:");
+			s1="The bridge words from \'"+word1+"\' to \'"+word2+"\' are:";
 			for(i=1;i<=queryBridgeWords(word1,word2)[0];i++)
 				{
-					if(i<queryBridgeWords(word1,word2)[0])
+					if(i<queryBridgeWords(word1,word2)[0]){
 						System.out.println(arr_[queryBridgeWords(word1,word2)[i]]+ ", and ");
+					    s1=s1+arr_[queryBridgeWords(word1,word2)[i]]+ ", and ";
+					    }
 					else{
-						System.out.println("1111111111111111111111111111");
-						
-						
-						
 						System.out.println(arr_[queryBridgeWords(word1,word2)[i]]+".");
+						s1=s1+arr_[queryBridgeWords(word1,word2)[i]]+".";
+						
 					}
 				}
+			System.out.println(s1);
+			return s1;
 			}
+		
 		
 	}//输出桥接词
 	
