@@ -1,4 +1,5 @@
-package hushan;111111000000000000000000----=======
+package hushan;
+package hushan;
 //GraphViz.java - a simple API to call dot from Java programs
 /*$Id$*/
 /*

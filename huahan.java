@@ -1,5 +1,7 @@
-package hushan;-------
-import java.io.*;000000
+package hushan;
+import java.io.*;
+package hushan;
+import java.io.*;
 import java.util.Random;
 
 //hushan is a beautiful girl
